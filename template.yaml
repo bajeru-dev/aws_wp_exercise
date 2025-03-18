@@ -1,6 +1,5 @@
-
-# Parameters
 AWSTemplateFormatVersion: "2010-09-09"
+# Parameters
 Parameters:
   VpcCidrBlock:
     Type: String
@@ -28,7 +27,6 @@ Parameters:
     NoEcho: true
 
 Resources:
-
   # VPC
   WordPressVPC:
     Type: "AWS::EC2::VPC"
