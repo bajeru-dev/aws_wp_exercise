@@ -11,7 +11,7 @@ Note: Template is based on guide from: https://vuyisile.com/creating-two-tier-wo
 `aws cloudformation validate-template --template-body file://template.yaml`
 
 ### Create the stack in AWS
-`aws cloudformation create-stack --stack-name WordPressStack --template-body file://template.yaml --parameters ParameterKey=DatabasePassword,ParameterValue=[password]`
+`aws cloudformation create-stack --stack-name WordPressStack --template-body file://template.yaml --parameters ParameterKey=DatabasePassword,ParameterValue=[password] ParameterKey=ImportKey,ParameterValue='[wordpress_machine_public_key]'`
 
 ### Debug deployment
 `aws cloudformation describe-stack-events --stack-name [stack ID] (or WordPressStack)`

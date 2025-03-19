@@ -25,6 +25,10 @@ Parameters:
     Type: String
     Description: Initial Temporary password for the database user
     NoEcho: true
+  ImportKey:
+    Type: String
+    Description: Public key to access WordPress machine
+    NoEcho: true
 
 Resources:
   # VPC
@@ -166,7 +170,8 @@ Resources:
   WordPressKey:
     Type: AWS::EC2::KeyPair
     Properties:
-      KeyName: wordpress_key
+      KeyName: NameForMyImportedKeyPair
+      PublicKeyMaterial: !Ref ImportKey
   # Servers
   DatabaseServerInstance:
     Type: AWS::EC2::Instance
