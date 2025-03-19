@@ -162,10 +162,11 @@ Resources:
           FromPort: 3306
           ToPort: 3306
           SourceSecurityGroupId: !GetAtt AppServerInstanceSecurityGroup.GroupId
+  # Keys
   WordPressKey:
     Type: AWS::EC2::KeyPair
     Properties:
-      KeyName: MyKeyPair
+      KeyName: wordpress_key
   # Servers
   DatabaseServerInstance:
     Type: AWS::EC2::Instance
