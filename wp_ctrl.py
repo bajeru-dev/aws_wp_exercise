@@ -16,8 +16,6 @@ class Wordpress:
         self.header = {'Authorization': 'Basic ' + token.decode('utf-8')}
 
     def init_parser(self):
-        parser = argparse.ArgumentParser()
-        subparsers = parser.add_subparsers(dest='cmd', required=True)
         function_map = {
             'list_posts' : {'cmd': self.list_posts, 'args': []},
             'get_post' : {'cmd': self.get_post, 'args': ['post_id']},
@@ -25,6 +23,8 @@ class Wordpress:
             'update_post' : {'cmd': self.update_post, 'args': ['post_id', 'title', 'content']},
             'delete_post' : {'cmd': self.delete_post, 'args': ['post_id']},
         }
+        parser = argparse.ArgumentParser()
+        subparsers = parser.add_subparsers(dest='cmd', required=True)
         for name, info in function_map.items():
             info['parser'] = subparsers.add_parser(name)
             for argument in info['args']:
@@ -33,8 +33,6 @@ class Wordpress:
         self.args = parser.parse_args()
 
     def wp_request(self, method, request, **kwargs):
-        if kwargs.get('json'):
-            print(f"got json:{kwargs.get('json')}")
         response = requests.request(method, self.url + request, headers=self.header, json=kwargs.get('json'))
         if  response.status_code in [200, 201]:
             return response.json()
@@ -78,5 +76,5 @@ if __name__=="__main__":
     # Create wordpress object with url
     wp = Wordpress(os.environ['WP_URL'])
     # Authentication
-    wp.login(os.environ['WP_USER'], os.environ['WP_PASSWORD'])
+    wp.login(os.environ['WP_USER'], os.environ['WP_APP_PASSWORD'])
     wp.args.func()
